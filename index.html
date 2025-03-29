@@ -14,19 +14,17 @@
 </head>
 <body>
 
-    <h1>Joke Of The Day</h1>
+    <h1 id="header">Joke Of The Day</h1>
     
     <div class="main_container">
-        <div class="joke" id="jokedisplay"></div>
+        <div class="joke" id="joke">
+
+        </div></div>
             <p>
           
              
             </p>
-    
-    
    
-
-    </div>
 
     <h2>Generate A New Random Joke By Category</h2>
    
@@ -37,28 +35,32 @@
 <button id="Spooky">Spooky</button>
 <button id="Christmas">Christmas</button>
 
+
 <dialog id="scriptdialog">
     <p id="joketext"></p>
     <button id="closemodal">Close</button>
-</dialog>
+</dialog> 
 
-
-<div id="joke"></div>
 
 <script>
     const jokeEl = document.getElementById('joke');
-      const programmingButton = document.getElementById('Programming');
+    const header = document.getElementById('header');
+    const programmingButton = document.getElementById('Programming');
       const miscellaneousButton = document.getElementById('Miscellaneous');
       const punButton = document.getElementById('Pun');
       const spookyButton = document.getElementById('Spooky');
       const christmasButton = document.getElementById('Christmas');
 
+      const dialog = document.getElementById('scriptdialog');
+        const closeModalButton = document.getElementById('closemodal');
+        const jokeTextEl = document.getElementById('joketext');
 
-    programmingButton.addEventListener('click', () => generateJoke('Programming'));
-      miscellaneousButton.addEventListener('click', () => generateJoke('Miscellaneous'));
+
+   programmingButton.addEventListener('click', () => generateJoke('Programming'));
+     miscellaneousButton.addEventListener('click', () => generateJoke('Miscellaneous'));
       punButton.addEventListener('click', () => generateJoke('Pun'));
-      spookyButton.addEventListener('click', () => generateJoke('Spooky'));
-      christmasButton.addEventListener('click', () => generateJoke('Christmas'));
+     spookyButton.addEventListener('click', () => generateJoke('Spooky'));
+     christmasButton.addEventListener('click', () => generateJoke('Christmas'));
 
 
       async function generateJoke(category) {
@@ -71,14 +73,35 @@
             jokeText = jokeData.joke;
           } else if (jokeData.type === 'twopart') {
             jokeText = `${jokeData.setup} ... ${jokeData.delivery}`;
+          } else {
+            jokeText = 'Sorry, the hamsters are sleeping'
           }
-          jokeEl.innerText = jokeText; 
-          dialog.showmodal();
 
-} 
+          if (category === 'Any') {
+            header.innerText = 'Joke Of The Day'
+          }
+          else if (category === 'Pun') {
+            header.innerText = 'A Random Pun';
+          } else {
+          header.innerText =`A Random ${category} Joke`;
+          }
+ 
+          jokeEl.innerText = jokeText;
+          dialog.close();
+
+} catch (error) {
+    jokeEl.innerText = 'Sorry, the hamsters are sleeping'
+    dialog.close();
+}
       }
 
+      window.onload = function() {
+        generateJoke('Any');
+      };
 
+closeModalButton.addEventListener('click', () => {
+    dialog.close();
+});
 </script>
 
 
