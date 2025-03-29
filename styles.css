@@ -1,0 +1,19 @@
+*{
+    box-sizing: border-box;
+}
+
+body {
+    background-color:cornflowerblue;
+    text-align: center;
+}
+
+.main_container {
+    background-color:lightpink;
+    border-radius: 10px;
+    margin: 5%;
+    padding: 1em;
+}
+
+h1 {
+    opacity: 0.65;
+}

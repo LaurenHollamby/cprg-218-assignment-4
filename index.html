@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<link rel="stylesheet" href="styles.css">
+
+
+
+<title>Joke Of The Day</title>
+
+</head>
+<body>
+
+    <h1>Joke Of The Day</h1>
+    
+    <div class="main_container">
+        <div class="joke" id="jokedisplay"></div>
+            <p>
+          
+             
+            </p>
+    
+    
+   
+
+    </div>
+
+    <h2>Generate A New Random Joke By Category</h2>
+   
+
+<button id="Programming">Programming</button>
+<button id="Miscellaneous">Miscellaneous</button>
+<button id="Pun">Pun</button>
+<button id="Spooky">Spooky</button>
+<button id="Christmas">Christmas</button>
+
+<dialog id="scriptdialog">
+    <p id="joketext"></p>
+    <button id="closemodal">Close</button>
+</dialog>
+
+
+<div id="joke"></div>
+
+<script>
+    const jokeEl = document.getElementById('joke');
+      const programmingButton = document.getElementById('Programming');
+      const miscellaneousButton = document.getElementById('Miscellaneous');
+      const punButton = document.getElementById('Pun');
+      const spookyButton = document.getElementById('Spooky');
+      const christmasButton = document.getElementById('Christmas');
+
+
+    programmingButton.addEventListener('click', () => generateJoke('Programming'));
+      miscellaneousButton.addEventListener('click', () => generateJoke('Miscellaneous'));
+      punButton.addEventListener('click', () => generateJoke('Pun'));
+      spookyButton.addEventListener('click', () => generateJoke('Spooky'));
+      christmasButton.addEventListener('click', () => generateJoke('Christmas'));
+
+
+      async function generateJoke(category) {
+        try {
+            const jokeRes = await fetch(`https://v2.jokeapi.dev/joke/${category}?safe-mode`);
+          const jokeData = await jokeRes.json();
+
+          let jokeText = '';
+          if (jokeData.type === 'single') {
+            jokeText = jokeData.joke;
+          } else if (jokeData.type === 'twopart') {
+            jokeText = `${jokeData.setup} ... ${jokeData.delivery}`;
+          }
+          jokeEl.innerText = jokeText; 
+          dialog.showmodal();
+
+} 
+      }
+
+
+</script>
+
+
+
+
+          
+
+
+
+
+    
+</body>
